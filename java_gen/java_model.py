@@ -1056,7 +1056,17 @@ class JavaEnum(object):
             for ir_entry in ir_enum.entries:
                 entry_name_version_value_map[ir_entry.name][version] = ir_entry.value
 
-        self.entries = [ JavaEnumEntry(self, name, version_value_map)
+        name_parts = [ n.split("_") for n in entry_name_version_value_map.keys() ]
+        def common_prefix(alist,blist):
+            for i, (a,b) in enumerate(zip(alist, blist)):
+                if a != b:
+                    return alist[:i]
+            return alist
+        shorten_names = min(len(reduce(lambda i, n: common_prefix(i,n), name_parts[1:], name_parts[0])), len(name_parts[0]) - 1 )
+        def enum_part_name(c_name):
+            return self.name_prefix + "_".join(c_name.split("_")[shorten_names:])
+
+        self.entries = [ JavaEnumEntry(self, enum_part_name(name), version_value_map)
                          for (name, version_value_map) in entry_name_version_value_map.items() ]
 
         self.entries = [ e for e in self.entries if e.name not in model.enum_entry_blacklist[self.name] ]
@@ -1108,7 +1118,7 @@ class JavaEnum(object):
 class JavaEnumEntry(object):
     def __init__(self, enum, name, values):
         self.enum = enum
-        self.name = enum.name_prefix + "_".join(name.split("_")[1:]).upper()
+        self.name = name
         self.values = values
 
     @property
