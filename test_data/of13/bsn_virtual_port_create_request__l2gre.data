@@ -63,8 +63,8 @@ builder.setXid(0x01020304)
         factory.buildBsnVportL2Gre()
             .setFlags(
                 ImmutableSet.<OFBsnVportL2GreFlags>of(
-                    OFBsnVportL2GreFlags.BSN_VPORT_L2GRE_LOCAL_MAC_IS_VALID,
-                    OFBsnVportL2GreFlags.BSN_VPORT_L2GRE_DSCP_ASSIGN
+                    OFBsnVportL2GreFlags.LOCAL_MAC_IS_VALID,
+                    OFBsnVportL2GreFlags.DSCP_ASSIGN
                 )
             )
             .setPortNo(OFPort.of(1))
