@@ -39,7 +39,11 @@ def pretty_ipv4(v):
     return "%d.%d.%d.%d" % ((v >> 24) & 0xFF, (v >> 16) & 0xFF, (v >> 8) & 0xFF, v & 0xFF)
 
 def pretty_ipv6(v):
+:: if pyversion == 3:
+    return ":".join(["%0.2x%0.2x" % (v[i], v[i+1]) for i in range(0, len(v), 2)])
+:: else:
     return ":".join(["%0.2x%0.2x" % (ord(v[i]), ord(v[i+1])) for i in range(0, len(v), 2)])
+:: #endif
 
 def pretty_flags(v, flag_names):
     set_flags = []
