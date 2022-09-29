@@ -1882,3 +1882,9 @@ struct of_bsn_tlv_current : of_bsn_tlv {
     uint16_t length;
     uint32_t value;
 };
+
+struct of_bsn_tlv_truncate_size : of_bsn_tlv {
+    uint16_t type == 253;
+    uint16_t length;
+    uint32_t value;
+};
