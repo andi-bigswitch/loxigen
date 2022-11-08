@@ -1837,6 +1837,9 @@ enum ofp_bsn_switchport_mode(wire_type=uint8_t) {
     OFP_BSN_SWITCHPORT_MODE_ACCESS = 0,
     OFP_BSN_SWITCHPORT_MODE_ROUTED = 1,
     OFP_BSN_SWITCHPORT_MODE_TRUNK = 2,
+    OFP_BSN_SWITCHPORT_MODE_TAP = 3,
+    OFP_BSN_SWITCHPORT_MODE_TOOL = 4,
+    OFP_BSN_SWITCHPORT_MODE_TAPTOOL = 5,
 };
 
 struct of_bsn_tlv_switchport_mode : of_bsn_tlv {
