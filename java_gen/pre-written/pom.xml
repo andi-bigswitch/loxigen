@@ -65,8 +65,8 @@
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.1.50.Final</version>
+            <artifactId>netty-buffer</artifactId>
+            <version>4.1.82.Final</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
