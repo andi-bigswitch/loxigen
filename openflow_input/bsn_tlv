@@ -1898,3 +1898,9 @@ struct of_bsn_tlv_truncation_capability : of_bsn_tlv {
     uint32_t min;
     uint32_t max;
 };
+
+struct of_bsn_tlv_strip_vxlan_header : of_bsn_tlv {
+    uint16_t type == 255;
+    uint16_t length;
+    uint16_t value;
+};
