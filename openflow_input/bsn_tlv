@@ -1837,6 +1837,9 @@ enum ofp_bsn_switchport_mode(wire_type=uint8_t) {
     OFP_BSN_SWITCHPORT_MODE_ACCESS = 0,
     OFP_BSN_SWITCHPORT_MODE_ROUTED = 1,
     OFP_BSN_SWITCHPORT_MODE_TRUNK = 2,
+    OFP_BSN_SWITCHPORT_MODE_TAP = 3,
+    OFP_BSN_SWITCHPORT_MODE_TOOL = 4,
+    OFP_BSN_SWITCHPORT_MODE_TAPTOOL = 5,
 };
 
 struct of_bsn_tlv_switchport_mode : of_bsn_tlv {
@@ -1881,4 +1884,23 @@ struct of_bsn_tlv_current : of_bsn_tlv {
     uint16_t type == 252;
     uint16_t length;
     uint32_t value;
+};
+
+struct of_bsn_tlv_truncate_size : of_bsn_tlv {
+    uint16_t type == 253;
+    uint16_t length;
+    uint32_t value;
+};
+
+struct of_bsn_tlv_truncation_capability : of_bsn_tlv {
+    uint16_t type == 254;
+    uint16_t length;
+    uint32_t min;
+    uint32_t max;
+};
+
+struct of_bsn_tlv_strip_vxlan_header : of_bsn_tlv {
+    uint16_t type == 255;
+    uint16_t length;
+    uint16_t value;
 };
