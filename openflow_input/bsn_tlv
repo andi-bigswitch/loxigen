@@ -1912,8 +1912,12 @@ struct of_bsn_tlv_strip_vxlan_on_ingress : of_bsn_tlv {
     uint16_t length;
 };
 
+enum ofp_bsn_untagged_match_caps(wire_type=uint8_t, bitmask=True) {
+    OFP_BSN_UNTAGGED_MATCH_CAPS_SUPPORTED = 0x1,
+};
+
 struct of_bsn_tlv_untagged_match_capability : of_bsn_tlv {
     uint16_t type == 257;
     uint16_t length;
-    uint8_t supported;
+    enum ofp_bsn_untagged_match_caps value;
 };
