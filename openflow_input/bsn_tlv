@@ -1911,3 +1911,9 @@ struct of_bsn_tlv_strip_vxlan_on_ingress : of_bsn_tlv {
     uint16_t type == 256;
     uint16_t length;
 };
+
+struct of_bsn_tlv_untagged_match_capability : of_bsn_tlv {
+    uint16_t type == 257;
+    uint16_t length;
+    uint8_t supported;
+};
