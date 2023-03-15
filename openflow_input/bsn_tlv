@@ -999,6 +999,7 @@ struct of_bsn_tlv_port_usage : of_bsn_tlv {
 enum ofp_bsn_tunnel_type(wire_type=uint64_t, bitmask=True) {
     OFP_BSN_TUNNEL_L2GRE = 0x1,
     OFP_BSN_TUNNEL_VXLAN = 0x2,
+    OFP_BSN_TUNNEL_DZGRE = 0x4,
 };
 
 struct of_bsn_tlv_tunnel_capability : of_bsn_tlv {
@@ -1920,4 +1921,30 @@ struct of_bsn_tlv_untagged_match_capability : of_bsn_tlv {
     uint16_t type == 257;
     uint16_t length;
     enum ofp_bsn_untagged_match_caps value;
+};
+
+struct of_bsn_tlv_switch_id : of_bsn_tlv {
+    uint16_t type == 258;
+    uint16_t length;
+    uint16_t value;
+};
+
+struct of_bsn_tlv_policy_id : of_bsn_tlv {
+    uint16_t type == 259;
+    uint16_t length;
+    uint16_t value;
+};
+
+enum ofp_bsn_push_vlan_mode(wire_type=uint8_t) {
+    OFP_BSN_PUSH_VLAN_MODE_NONE = 0,
+    OFP_BSN_PUSH_VLAN_MODE_POLICY_TAG = 1,
+    OFP_BSN_PUSH_VLAN_MODE_PORT_TAG = 2,
+    OFP_BSN_PUSH_VLAN_MODE_POLICY_INNER_PORT_TAG = 3,
+    OFP_BSN_PUSH_VLAN_MODE_PORT_INNER_POLICY_TAG = 4,
+};
+
+struct of_bsn_tlv_push_vlan_mode_on_egress : of_bsn_tlv {
+    uint16_t type == 260;
+    uint16_t length;
+    enum ofp_bsn_push_vlan_mode value;
 };
