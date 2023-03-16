@@ -740,6 +740,7 @@ enum of_bsn_hash_packet_field(wire_type=uint64_t, bitmask=True) {
     OFP_BSN_HASH_FIELD_MPLS_PAYLOAD_SRC_IP = 0x10000,
     OFP_BSN_HASH_FIELD_MPLS_PAYLOAD_DST_IP = 0x20000,
     OFP_BSN_HASH_FIELD_SYMMETRIC =           0x40000,
+    OFP_BSN_HASH_FIELD_L2GRE_KEY =           0x80000,
 };
 
 struct of_bsn_tlv_hash_packet_field : of_bsn_tlv {
