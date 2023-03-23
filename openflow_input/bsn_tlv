@@ -1953,7 +1953,7 @@ struct of_bsn_tlv_push_vlan_mode_on_egress : of_bsn_tlv {
 enum ofp_bsn_push_vlan_source(wire_type=uint8_t) {
     OFP_BSN_PUSH_VLAN_SOURCE_NONE = 0,
     OFP_BSN_PUSH_VLAN_SOURCE_DZGRE = 1,
-    OFP_BSN_PUSH_VLAN_SOURCE_LOCAL = 1,
+    OFP_BSN_PUSH_VLAN_SOURCE_LOCAL = 2,
 };
 
 struct of_bsn_tlv_push_vlan_source_on_egress : of_bsn_tlv {
