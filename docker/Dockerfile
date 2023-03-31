@@ -1,6 +1,5 @@
 FROM ubuntu:18.04
 
-ADD etc/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts
 ADD etc/apt/apt.conf.d/02-proxy /etc/apt/apt.conf.available/02-proxy
 RUN nc -z -w 2 apt-proxy.eng.bigswitch.com 3142 >/dev/null 2>&1 && ln -s ../apt.conf.available/02-proxy /etc/apt/apt.conf.d || true
 

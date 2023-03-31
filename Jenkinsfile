@@ -32,7 +32,7 @@ pipeline {
     agent {
         dockerfile {
             dir 'docker'
-            args """--entrypoint ''"""
+            args """-v /etc/ssh/ssh_known_hosts:/etc/ssh/ssh_known_hosts --entrypoint ''"""
         }
     }
 
