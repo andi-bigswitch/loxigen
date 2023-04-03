@@ -1782,6 +1782,8 @@ struct of_bsn_tlv_ptp_src_ipv6 : of_bsn_tlv {
 enum ofp_bsn_timestamp_mode(wire_type=uint8_t) {
     OFP_BSN_TIMESTAMP_MODE_REPLACE_SMAC = 0,
     OFP_BSN_TIMESTAMP_MODE_ADD_HEADER = 1,
+    OFP_BSN_TIMESTAMP_MODE_ADD_HEADER_AFTER_SMAC = 2,
+    OFP_BSN_TIMESTAMP_MODE_ADD_HEADER_AFTER_L2 = 3,
 };
 
 struct of_bsn_tlv_timestamp_mode : of_bsn_tlv {
@@ -1797,6 +1799,8 @@ enum ofp_bsn_timestamp_caps(wire_type=uint16_t, bitmask=True) {
     OFP_BSN_TIMESTAMP_CAPS_HEADER_48BIT = 0x8,
     OFP_BSN_TIMESTAMP_CAPS_PORT_BASED = 0x10,
     OFP_BSN_TIMESTAMP_CAPS_FLOW_BASED = 0x20,
+    OFP_BSN_TIMESTAMP_CAPS_ADD_HEADER_AFTER_SMAC = 0x40,
+    OFP_BSN_TIMESTAMP_CAPS_ADD_HEADER_AFTER_L2 = 0x80,
 };
 
 struct of_bsn_tlv_timestamp_capability : of_bsn_tlv {
@@ -1971,4 +1975,10 @@ struct of_bsn_tlv_preserve_dzgre : of_bsn_tlv {
     uint16_t type == 262;
     uint16_t length;
     enum ofp_bsn_preserve_dzgre value;
+};
+
+struct of_bsn_tlv_timestamp_eth_type : of_bsn_tlv {
+    uint16_t type == 263;
+    uint16_t length;
+    uint16_t value;
 };
