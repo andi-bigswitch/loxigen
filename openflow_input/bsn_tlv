@@ -1982,3 +1982,8 @@ struct of_bsn_tlv_timestamp_eth_type : of_bsn_tlv {
     uint16_t length;
     uint16_t value;
 };
+
+struct of_bsn_tlv_disable_push_vlan_on_egress : of_bsn_tlv {
+    uint16_t type == 264;
+    uint16_t length;
+};
