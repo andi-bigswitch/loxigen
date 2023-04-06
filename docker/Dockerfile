@@ -24,7 +24,7 @@ RUN apt-get update \
         python3-setuptools \
         rsync
 
-RUN curl -L https://jenkins-dl.eng.bigswitch.com/github-known-hosts/master/builds/lastSuccessfulBuild/archive/ssh_known_hosts \
+RUN curl --fail -L https://jenkins-dl.eng.bigswitch.com/github-known-hosts/master/builds/lastSuccessfulBuild/archive/ssh_known_hosts \
     >/etc/ssh/ssh_known_hosts
 
 RUN pip3 install PyGithub==1.35
