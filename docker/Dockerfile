@@ -1,12 +1,12 @@
 FROM ubuntu:18.04
 
-ADD etc/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts
 ADD etc/apt/apt.conf.d/02-proxy /etc/apt/apt.conf.available/02-proxy
 RUN nc -z -w 2 apt-proxy.eng.bigswitch.com 3142 >/dev/null 2>&1 && ln -s ../apt.conf.available/02-proxy /etc/apt/apt.conf.d || true
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --no-install-recommends \
         build-essential \
+        curl \
         git \
         gnupg \
         maven \
@@ -23,6 +23,9 @@ RUN apt-get update \
         python3-requests \
         python3-setuptools \
         rsync
+
+RUN curl --fail -L https://jenkins-dl.eng.bigswitch.com/github-known-hosts/master/builds/lastSuccessfulBuild/archive/ssh_known_hosts \
+    >/etc/ssh/ssh_known_hosts
 
 RUN pip3 install PyGithub==1.35
 
