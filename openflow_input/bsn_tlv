@@ -1987,3 +1987,39 @@ struct of_bsn_tlv_disable_push_vlan_on_egress : of_bsn_tlv {
     uint16_t type == 264;
     uint16_t length;
 };
+
+struct of_bsn_tlv_llc : of_bsn_tlv {
+    uint16_t type == 265;
+    uint16_t length;
+    uint64_t value; /* Last Level Cache Occupancy in Bytes */
+};
+
+struct of_bsn_tlv_llc_misses : of_bsn_tlv {
+    uint16_t type == 266;
+    uint16_t length;
+    uint64_t value; /* Last Level Cache miss count */
+};
+
+struct of_bsn_tlv_mbm_local : of_bsn_tlv {
+    uint16_t type == 267;
+    uint16_t length;
+    uint64_t value; /* Local Memory Bandwidth in Bytes */
+};
+
+struct of_bsn_tlv_mbm_remote : of_bsn_tlv {
+    uint16_t type == 268;
+    uint16_t length;
+    uint64_t value; /* Remote Memory Bandwidth in Bytes */
+};
+
+struct of_bsn_tlv_ipc_retired : of_bsn_tlv {
+    uint16_t type == 269;
+    uint16_t length;
+    uint64_t value; /* Retired instructions count */
+};
+
+struct of_bsn_tlv_ipc_unhalted : of_bsn_tlv {
+    uint16_t type == 270;
+    uint16_t length;
+    uint64_t value; /* Unhalted cycles count */
+};
