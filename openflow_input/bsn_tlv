@@ -2023,3 +2023,15 @@ struct of_bsn_tlv_ipc_unhalted : of_bsn_tlv {
     uint16_t length;
     uint64_t value; /* Unhalted cycles count */
 };
+
+struct of_bsn_tlv_max_tokens : of_bsn_tlv {
+    uint16_t type == 271;
+    uint16_t length;
+    uint64_t value; /* Maximum number of tokens in token bucket */
+};
+
+struct of_bsn_tlv_tokens_per_refresh : of_bsn_tlv {
+    uint16_t type == 272;
+    uint16_t length;
+    uint64_t value; /* Tokens to add to bucket when refresh interval expires */
+};
