@@ -2035,3 +2035,10 @@ struct of_bsn_tlv_tokens_per_refresh : of_bsn_tlv {
     uint16_t length;
     uint64_t value; /* Tokens to add to bucket when refresh interval expires */
 };
+
+struct of_bsn_tlv_src_port_range : of_bsn_tlv {
+    uint16_t type == 273;
+    uint16_t length;
+    uint16_t min;
+    uint16_t max;
+};
