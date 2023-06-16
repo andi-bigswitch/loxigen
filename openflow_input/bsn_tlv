@@ -2042,3 +2042,10 @@ struct of_bsn_tlv_src_port_range : of_bsn_tlv {
     uint16_t min;
     uint16_t max;
 };
+
+struct of_bsn_tlv_dst_port_range : of_bsn_tlv {
+    uint16_t type == 274;
+    uint16_t length;
+    uint16_t min;
+    uint16_t max;
+};
