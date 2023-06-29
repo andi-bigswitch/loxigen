@@ -2049,3 +2049,31 @@ struct of_bsn_tlv_dst_port_range : of_bsn_tlv {
     uint16_t min;
     uint16_t max;
 };
+
+struct of_bsn_tlv_tcp_idle_timeout : of_bsn_tlv {
+    uint16_t type == 275;
+    uint16_t length;
+    uint32_t value; /* TCP idle timeout in milliseconds */
+};
+
+struct of_bsn_tlv_udp_idle_timeout : of_bsn_tlv {
+    uint16_t type == 276;
+    uint16_t length;
+    uint32_t value; /* UDP idle timeout in milliseconds */
+};
+
+enum ofp_bsn_action_mem_footprint(wire_type=uint16_t) {
+    OFP_BSN_ACTION_MEM_FOOTPRINT_LARGE  = 0, /* Large is default */
+    OFP_BSN_ACTION_MEM_FOOTPRINT_MEDIUM = 1,
+    OFP_BSN_ACTION_MEM_FOOTPRINT_SMALL  = 2,
+
+    /* Increment this count if we add more options */
+    OFP_BSN_ACTION_MEM_FOOTPRINT_COUNT = 3,
+};
+
+/* Used to consider how much memory to allocate for action-specific structures */
+struct of_bsn_tlv_action_mem_footprint : of_bsn_tlv {
+    uint16_t type == 277;
+    uint16_t length;
+    enum ofp_bsn_action_mem_footprint value;
+};
