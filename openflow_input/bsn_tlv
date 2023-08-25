@@ -2115,15 +2115,13 @@ struct of_bsn_tlv_macsec_cipher_suite : of_bsn_tlv {
 struct of_bsn_tlv_macsec_key : of_bsn_tlv {
     uint16_t type == 281;
     uint16_t length;
-    of_octets_t ckn;
-    of_octets_t cak;
+    of_octets_t key; /* 64 hex ckn followed by 32/64 hex cak */
 };
 
 struct of_bsn_tlv_macsec_key_fallback : of_bsn_tlv {
     uint16_t type == 282;
     uint16_t length;
-    of_octets_t ckn;
-    of_octets_t cak;
+    of_octets_t key; /* 64 hex ckn followed by 32/64 hex cak */
 };
 
 struct of_bsn_tlv_macsec_key_server_priority : of_bsn_tlv {
