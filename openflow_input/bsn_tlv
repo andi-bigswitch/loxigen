@@ -2077,3 +2077,125 @@ struct of_bsn_tlv_action_mem_footprint : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_action_mem_footprint value;
 };
+
+enum ofp_bsn_macsec_global_option(wire_type=uint16_t, bitmask=True) {
+   OFP_BSN_MACSEC_GLOBAL_FIPS_SET = 0x1, /* option is set by controller */
+   OFP_BSN_MACSEC_GLOBAL_FIPS = 0x2,
+   OFP_BSN_MACSEC_GLOBAL_BYPASS_PTP_SET = 0x4,
+   OFP_BSN_MACSEC_GLOBAL_BYPASS_PTP = 0x8,
+   OFP_BSN_MACSEC_GLOBAL_BYPASS_ETH_FLOW_CONTROL_SET = 0x10,
+   OFP_BSN_MACSEC_GLOBAL_BYPASS_ETH_FLOW_CONTROL = 0x20,
+};
+
+struct of_bsn_tlv_macsec_global_option : of_bsn_tlv {
+    uint16_t type == 278;
+    uint16_t length;
+    enum ofp_bsn_macsec_global_option value;
+};
+
+struct of_bsn_tlv_macsec_eapol_dmac : of_bsn_tlv {
+    uint16_t type == 279;
+    uint16_t length;
+    of_mac_addr_t value;
+};
+
+enum ofp_bsn_macsec_cipher_suite(wire_type=uint32_t) {
+    OFP_BSN_MACSEC_GCM_AES_128 = 1,
+    OFP_BSN_MACSEC_GCM_AES_256 = 2,
+    OFP_BSN_MACSEC_GCM_AES_XPN_128 = 3,
+    OFP_BSN_MACSEC_GCM_AES_XPN_256 = 4,
+};
+
+struct of_bsn_tlv_macsec_cipher_suite : of_bsn_tlv {
+    uint16_t type == 280;
+    uint16_t length;
+    enum ofp_bsn_macsec_cipher_suite value;
+};
+
+struct of_bsn_tlv_macsec_key : of_bsn_tlv {
+    uint16_t type == 281;
+    uint16_t length;
+    of_octets_t value; /* 64 hex ckn followed by 32/64 hex cak */
+};
+
+struct of_bsn_tlv_macsec_key_fallback : of_bsn_tlv {
+    uint16_t type == 282;
+    uint16_t length;
+    of_octets_t value; /* 64 hex ckn followed by 32/64 hex cak */
+};
+
+struct of_bsn_tlv_macsec_key_server_priority : of_bsn_tlv {
+    uint16_t type == 283;
+    uint16_t length;
+    uint8_t value;
+};
+
+struct of_bsn_tlv_macsec_session_rekey_period : of_bsn_tlv {
+    uint16_t type == 284;
+    uint16_t length;
+    uint32_t value;
+};
+
+struct of_bsn_tlv_macsec_sak_retire_delay : of_bsn_tlv {
+    uint16_t type == 285;
+    uint16_t length;
+    uint8_t value;
+};
+
+struct of_bsn_tlv_macsec_sak_transmit_delay : of_bsn_tlv {
+    uint16_t type == 286;
+    uint16_t length;
+    uint8_t value;
+};
+
+enum ofp_bsn_macsec_port_option(wire_type=uint32_t, bitmask=True) {
+   OFP_BSN_MACSEC_PORT_INCLUDE_SCI_SET = 0x1,
+   OFP_BSN_MACSEC_PORT_INCLUDE_SCI = 0x2,
+   OFP_BSN_MACSEC_PORT_BYPASS_LLDP_SET = 0x4,
+   OFP_BSN_MACSEC_PORT_BYPASS_LLDP = 0x8,
+   OFP_BSN_MACSEC_PORT_BYPASS_PTP_SET = 0x10,
+   OFP_BSN_MACSEC_PORT_BYPASS_PTP = 0x20,
+   OFP_BSN_MACSEC_PORT_BYPASS_ETH_FLOW_CONTROL_SET = 0x40,
+   OFP_BSN_MACSEC_PORT_BYPASS_ETH_FLOW_CONTROL = 0x80,
+   OFP_BSN_MACSEC_PORT_REPLAY_PROTECTION_SET = 0x100,
+   OFP_BSN_MACSEC_PORT_REPLAY_PROTECTION = 0x200,
+   OFP_BSN_MACSEC_PORT_SAK_AN_1BIT_SET = 0x400,
+   OFP_BSN_MACSEC_PORT_SAK_AN_1BIT = 0x800,
+   OFP_BSN_MACSEC_PORT_KEY_RETIRE_SET = 0x1000,
+   OFP_BSN_MACSEC_PORT_KEY_RETIRE = 0x2000,
+};
+
+struct of_bsn_tlv_macsec_port_option : of_bsn_tlv {
+    uint16_t type == 287;
+    uint16_t length;
+    enum ofp_bsn_macsec_port_option value;
+};
+
+enum ofp_bsn_macsec_traffic_unprotected(wire_type=uint8_t) {
+    OFP_BSN_MACSEC_TRAFFIC_UNPROTECTED_ALLOW_ACTIVE_SAK = 0,
+    OFP_BSN_MACSEC_TRAFFIC_UNPROTECTED_ALLOW = 1,
+    OFP_BSN_MACSEC_TRAFFIC_UNPROTECTED_DROP = 2,
+};
+
+struct of_bsn_tlv_macsec_traffic_unprotected : of_bsn_tlv {
+    uint16_t type == 288;
+    uint16_t length;
+    enum ofp_bsn_macsec_traffic_unprotected value;
+};
+
+struct of_bsn_tlv_macsec_replay_protection_window : of_bsn_tlv {
+    uint16_t type == 289;
+    uint16_t length;
+    uint32_t value;
+};
+
+enum ofp_bsn_tlv_macsec_caps(wire_type=uint8_t, bitmask=True) {
+    OFP_BSN_MACSEC_CAPS_HARDWARE_SUPPORTED = 0x1,
+    OFP_BSN_MACSEC_CAPS_LICENSE_ENABLED = 0x2,
+};
+
+struct of_bsn_tlv_macsec_capability : of_bsn_tlv {
+    uint16_t type == 290;
+    uint16_t length;
+    enum ofp_bsn_tlv_macsec_caps value;
+};
