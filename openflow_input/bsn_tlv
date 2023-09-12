@@ -2202,3 +2202,38 @@ struct of_bsn_tlv_macsec_capability : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_tlv_macsec_caps value;
 };
+
+enum ofp_bsn_cpu_trap(wire_type=uint16_t) {
+    OFP_BSN_CPU_TRAP_FLOW_CONTROL  = 0,
+    OFP_BSN_CPU_TRAP_ARP_PRIO = 1,
+    OFP_BSN_CPU_TRAP_IPV4_ICMP_PRIO = 2,
+    OFP_BSN_CPU_TRAP_IPV4_ECN = 3,
+    OFP_BSN_CPU_TRAP_IPV4_ICMP = 4,
+    OFP_BSN_CPU_TRAP_IPV4_DNS_REQ = 5,
+    OFP_BSN_CPU_TRAP_IPV4_DNS_RESP = 6,
+    OFP_BSN_CPU_TRAP_IPV4_DHCP_SERVER = 7,
+    OFP_BSN_CPU_TRAP_IPV4_DHCP_CLIENT = 8,
+    OFP_BSN_CPU_TRAP_IPV4_TCP_FIN = 9,
+    OFP_BSN_CPU_TRAP_IPV4_TCP_SYN = 10,
+    OFP_BSN_CPU_TRAP_IPV4_TCP_RESET = 11,
+    OFP_BSN_CPU_TRAP_ARP = 12,
+    OFP_BSN_CPU_TRAP_IPV6_ECN = 13,
+    OFP_BSN_CPU_TRAP_IPV6_DNS_REQ = 14,
+    OFP_BSN_CPU_TRAP_IPV6_DNS_RESP = 15,
+    OFP_BSN_CPU_TRAP_IPV6_DHCP_SERVER = 16,
+    OFP_BSN_CPU_TRAP_IPV6_DHCP_CLIENT = 17,
+    OFP_BSN_CPU_TRAP_IPV6_ICMP = 18,
+    OFP_BSN_CPU_TRAP_IPV6_TCP_FIN = 19,
+    OFP_BSN_CPU_TRAP_IPV6_TCP_SYN = 20,
+    OFP_BSN_CPU_TRAP_IPV6_TCP_RESET = 21,
+    OFP_BSN_CPU_TRAP_ENCAPPED_LLDP = 22,
+
+    /* Increment this count if we add more options */
+    OFP_BSN_CPU_TRAP_COUNT = 23,
+};
+
+struct of_bsn_tlv_cpu_trap : of_bsn_tlv {
+    uint16_t type == 291;
+    uint16_t length;
+    enum ofp_bsn_cpu_trap value;
+};
