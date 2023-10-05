@@ -2238,3 +2238,9 @@ struct of_bsn_tlv_cpu_trap : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_cpu_trap value;
 };
+
+struct of_bsn_tlv_port_id : of_bsn_tlv {
+    uint16_t type == 292;
+    uint16_t length;
+    uint16_t value;
+};
