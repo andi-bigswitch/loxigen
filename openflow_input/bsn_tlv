@@ -1932,13 +1932,13 @@ struct of_bsn_tlv_untagged_match_capability : of_bsn_tlv {
     enum ofp_bsn_untagged_match_caps value;
 };
 
-struct of_bsn_tlv_switch_id : of_bsn_tlv {
+struct of_bsn_tlv_dzgre_switch_id : of_bsn_tlv {
     uint16_t type == 258;
     uint16_t length;
     uint16_t value;
 };
 
-struct of_bsn_tlv_policy_id : of_bsn_tlv {
+struct of_bsn_tlv_dzgre_policy_id : of_bsn_tlv {
     uint16_t type == 259;
     uint16_t length;
     uint16_t value;
@@ -2239,7 +2239,7 @@ struct of_bsn_tlv_cpu_trap : of_bsn_tlv {
     enum ofp_bsn_cpu_trap value;
 };
 
-struct of_bsn_tlv_port_id : of_bsn_tlv {
+struct of_bsn_tlv_dzgre_port_id : of_bsn_tlv {
     uint16_t type == 292;
     uint16_t length;
     uint16_t value;
