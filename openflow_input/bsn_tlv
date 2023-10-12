@@ -2244,3 +2244,14 @@ struct of_bsn_tlv_dzgre_port_id : of_bsn_tlv {
     uint16_t length;
     uint16_t value;
 };
+
+enum ofp_bsn_strip_header_caps(wire_type=uint16_t, bitmask=True) {
+    OFP_BSN_STRIP_HEADER_CAPS_VXLAN = 0x1,
+    OFP_BSN_STRIP_HEADER_CAPS_L2GRE = 0x2,
+};
+
+struct of_bsn_tlv_strip_header_capability : of_bsn_tlv {
+    uint16_t type == 293;
+    uint16_t length;
+    enum ofp_bsn_strip_header_caps value;
+};
