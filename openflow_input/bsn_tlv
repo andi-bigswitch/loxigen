@@ -2255,3 +2255,21 @@ struct of_bsn_tlv_strip_header_capability : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_strip_header_caps value;
 };
+
+struct of_bsn_tlv_packet_timeout : of_bsn_tlv {
+    uint16_t type == 294;
+    uint16_t length;
+    uint32_t value; /* entry timeout in milliseconds */
+};
+
+struct of_bsn_tlv_flow_timeout : of_bsn_tlv {
+    uint16_t type == 295;
+    uint16_t length;
+    uint32_t value; /* entry timeout in milliseconds */
+};
+
+struct of_bsn_tlv_report_threshold : of_bsn_tlv {
+    uint16_t type == 296;
+    uint16_t length;
+    uint32_t value; /* sample count */
+};
