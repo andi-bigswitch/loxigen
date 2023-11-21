@@ -2317,3 +2317,10 @@ struct of_bsn_tlv_chassis_event : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_chassis_event value;
 };
+
+struct of_bsn_tlv_identifier_list : of_bsn_tlv {
+    uint16_t type == 302;
+    uint16_t length;
+    uint32_t identifier;
+    list(of_bsn_tlv_identifier_t) value;
+};
