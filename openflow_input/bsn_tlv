@@ -2324,3 +2324,15 @@ struct of_bsn_tlv_identifier_list : of_bsn_tlv {
     uint32_t identifier;
     list(of_bsn_tlv_identifier_t) value;
 };
+
+struct of_bsn_tlv_src_identifier : of_bsn_tlv {
+    uint16_t type == 303;
+    uint16_t length;
+    uint32_t value;
+};
+
+struct of_bsn_tlv_dst_identifier : of_bsn_tlv {
+    uint16_t type == 304;
+    uint16_t length;
+    uint32_t value;
+};
