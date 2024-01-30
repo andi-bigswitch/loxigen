@@ -2338,3 +2338,15 @@ struct of_bsn_tlv_dst_identifier : of_bsn_tlv {
     uint16_t length;
     uint32_t value;
 };
+
+enum ofp_bsn_rewrite_caps(wire_type=uint8_t, bitmask=True) {
+   OFP_BSN_REWRITE_CAPS_SRC_MAC = 0x1,
+   OFP_BSN_REWRITE_CAPS_DST_MAC = 0x2,
+   OFP_BSN_REWRITE_CAPS_SRC_DST_MAC = 0x4,
+};
+
+struct of_bsn_tlv_rewrite_capability : of_bsn_tlv {
+    uint16_t type == 305;
+    uint16_t length;
+    enum ofp_bsn_rewrite_caps value;
+};
