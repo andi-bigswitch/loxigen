@@ -7,7 +7,7 @@ RUN apt-get update \
         git \
         gnupg \
         maven \
-        openjdk-8-jdk \
+        openjdk-11-jdk \
         openssh-client \
         python \
         python-nose \
