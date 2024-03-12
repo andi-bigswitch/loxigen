@@ -1,7 +1,4 @@
-FROM ubuntu:18.04
-
-ADD etc/apt/apt.conf.d/02-proxy /etc/apt/apt.conf.available/02-proxy
-RUN nc -z -w 2 apt-proxy.eng.bigswitch.com 3142 >/dev/null 2>&1 && ln -s ../apt.conf.available/02-proxy /etc/apt/apt.conf.d || true
+FROM artifactory.infra.corp.arista.io/bsn-docker-internal/ubuntu/focal:latest
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --no-install-recommends \
@@ -10,11 +7,10 @@ RUN apt-get update \
         git \
         gnupg \
         maven \
-        openjdk-8-jdk \
+        openjdk-11-jdk \
         openssh-client \
         python \
         python-nose \
-        python-pip \
         python-setuptools \
         python3 \
         python3-arrow \

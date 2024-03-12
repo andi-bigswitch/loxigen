@@ -103,7 +103,7 @@ pipeline {
                     sh """
                         make clean java
                         cd loxi_output/openflowj
-                        JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 mvn --batch-mode -s $MAVEN_SETTINGS -Prelease -Psign -Drevision=${mavenPatchVersion} deploy
+                        mvn --batch-mode -V -s $MAVEN_SETTINGS -Prelease -Psign -Drevision=${mavenPatchVersion} deploy
                     """
                 }
                 sh """
