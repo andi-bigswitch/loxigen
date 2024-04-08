@@ -2350,3 +2350,9 @@ struct of_bsn_tlv_rewrite_capability : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_rewrite_caps value;
 };
+
+struct of_bsn_tlv_update_time : of_bsn_tlv {
+    uint16_t type == 306;
+    uint16_t length;
+    uint64_t value;
+};
