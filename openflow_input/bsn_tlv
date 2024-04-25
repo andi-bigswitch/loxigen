@@ -2356,3 +2356,9 @@ struct of_bsn_tlv_update_time : of_bsn_tlv {
     uint16_t length;
     uint64_t value;
 };
+
+struct of_bsn_tlv_transceiver_frequency : of_bsn_tlv {
+    uint16_t type == 307;
+    uint16_t length;
+    uint32_t value; /* in MHz */
+};
