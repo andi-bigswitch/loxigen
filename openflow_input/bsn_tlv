@@ -1017,6 +1017,7 @@ enum ofp_bsn_enhanced_hash_type(wire_type=uint64_t, bitmask=True) {
     OFP_BSN_ENHANCED_HASH_GTP = 0x10,
     OFP_BSN_ENHANCED_HASH_SYMMETRIC = 0x20,
     OFP_BSN_ENHANCED_HASH_VXLAN = 0x40,
+    OFP_BSN_ENHANCED_HASH_SYMMETRIC_L3L4 = 0x80,
 };
 
 struct of_bsn_tlv_enhanced_hash_capability : of_bsn_tlv {
