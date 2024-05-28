@@ -2370,3 +2370,74 @@ struct of_bsn_tlv_replicate : of_bsn_tlv {
     uint32_t out_port;
     uint16_t vlan_vid;
 };
+
+enum ofp_bsn_field_set_type(wire_type=uint8_t) {
+   OFP_BSN_FIELD_SET_IPV4 = 0,
+   OFP_BSN_FIELD_SET_IPV6 = 1,
+   OFP_BSN_FIELD_SET_L4_PORT = 2,
+   OFP_BSN_FIELD_SET_MAC = 3,
+   OFP_BSN_FIELD_SET_VLAN = 4,
+};
+
+struct of_bsn_tlv_field_set : of_bsn_tlv {
+   uint16_t type == 309;
+   uint16_t length;
+   enum ofp_bsn_field_set_type fstype;
+   of_octets_t name;
+};
+
+enum ofp_bsn_field_set_match_type(wire_type=uint8_t) {
+   OFP_BSN_FIELD_SET_MATCH_IPV4_SRC = 0,
+   OFP_BSN_FIELD_SET_MATCH_IPV4_DST = 1,
+   OFP_BSN_FIELD_SET_MATCH_IPV6_SRC = 2,
+   OFP_BSN_FIELD_SET_MATCH_IPV6_DST = 3,
+   OFP_BSN_FIELD_SET_MATCH_TCP_SRC = 4,
+   OFP_BSN_FIELD_SET_MATCH_TCP_DST = 5,
+   OFP_BSN_FIELD_SET_MATCH_UDP_SRC = 6,
+   OFP_BSN_FIELD_SET_MATCH_UDP_DST = 7,
+   OFP_BSN_FIELD_SET_MATCH_ETH_SRC = 8,
+   OFP_BSN_FIELD_SET_MATCH_ETH_DST = 9,
+   OFP_BSN_FIELD_SET_MATCH_VLAN_VID = 10,
+};
+
+struct of_bsn_tlv_field_set_match : of_bsn_tlv {
+   uint16_t type == 310;
+   uint16_t length;
+   enum ofp_bsn_field_set_match_type mtype;
+   of_octets_t name;
+};
+
+struct of_bsn_tlv_ipv4_prefix : of_bsn_tlv {
+   uint16_t type == 311;
+   uint16_t length;
+   of_ipv4_t value;
+   uint8_t prefix_length;
+};
+
+struct of_bsn_tlv_ipv4_prefix_except : of_bsn_tlv {
+   uint16_t type == 312;
+   uint16_t length;
+   of_ipv4_t value;
+   uint8_t prefix_length;
+};
+
+struct of_bsn_tlv_ipv6_prefix_except : of_bsn_tlv {
+   uint16_t type == 313;
+   uint16_t length;
+   of_ipv6_t value;
+   uint8_t prefix_length;
+};
+
+struct of_bsn_tlv_l4_port_range : of_bsn_tlv {
+    uint16_t type == 314;
+    uint16_t length;
+    uint16_t min;
+    uint16_t max;
+};
+
+struct of_bsn_tlv_vlan_vid_range : of_bsn_tlv {
+    uint16_t type == 315;
+    uint16_t length;
+    uint16_t min;
+    uint16_t max;
+};
