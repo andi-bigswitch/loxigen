@@ -2288,6 +2288,7 @@ enum ofp_bsn_chassis_module_type(wire_type=uint8_t) {
     OFP_BSN_CHASSIS_MODULE_TYPE_SUPERVISOR = 1,
     OFP_BSN_CHASSIS_MODULE_TYPE_LINECARD = 2,
     OFP_BSN_CHASSIS_MODULE_TYPE_FABRIC = 3,
+    OFP_BSN_CHASSIS_MODULE_TYPE_SWITCHCARD = 4,
 };
 
 struct of_bsn_tlv_chassis_module_type : of_bsn_tlv {
@@ -2313,6 +2314,8 @@ enum ofp_bsn_chassis_event(wire_type=uint8_t) {
     OFP_BSN_CHASSIS_EVENT_LINECARD_REMOVED = 2,
     OFP_BSN_CHASSIS_EVENT_FABRIC_ADDED = 3,
     OFP_BSN_CHASSIS_EVENT_FARBIC_REMOVED = 4,
+    OFP_BSN_CHASSIS_EVENT_SWITCHCARD_ADDED = 5,
+    OFP_BSN_CHASSIS_EVENT_SWITCHCARD_REMOVED = 6,
 };
 
 struct of_bsn_tlv_chassis_event : of_bsn_tlv {
