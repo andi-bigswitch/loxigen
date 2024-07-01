@@ -2452,8 +2452,8 @@ struct of_bsn_tlv_port_count : of_bsn_tlv {
 };
 
 enum ofp_bsn_field_egr_qual_after_strip_vlan_type(wire_type=uint8_t) {
-    OFP_EGR_FLOW1_QUAL_INNER_VLAN = 1,
-    OFP_EGR_FLOW1_QUAL_OUTER_VLAN = 2,
+    OFP_BSN_EGR_FLOW1_QUAL_INNER_VLAN = 1,
+    OFP_BSN_EGR_FLOW1_QUAL_OUTER_VLAN = 2,
 };
 
 struct of_bsn_tlv_egr_qual_after_strip_vlan : of_bsn_tlv {
