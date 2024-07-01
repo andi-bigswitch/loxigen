@@ -2441,3 +2441,14 @@ struct of_bsn_tlv_vlan_vid_range : of_bsn_tlv {
     uint16_t min;
     uint16_t max;
 };
+
+enum ofp_bsn_field_egr_qual_after_strip_vlan_type(wire_type=uint8_t) {
+    OFP_EGR_FLOW1_QUAL_INNER_VLAN = 1,
+    OFP_EGR_FLOW1_QUAL_OUTER_VLAN = 2,
+};
+
+struct of_bsn_tlv_egr_qual_after_strip_vlan : of_bsn_tlv {
+    uint16_t type == 316;
+    uint16_t length;
+    enum ofp_bsn_field_egr_qual_after_strip_vlan_type value;
+};
