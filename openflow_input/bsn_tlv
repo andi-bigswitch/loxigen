@@ -2451,13 +2451,13 @@ struct of_bsn_tlv_port_count : of_bsn_tlv {
     uint16_t value;
 };
 
-enum ofp_bsn_field_egr_qual_after_strip_vlan_type(wire_type=uint8_t) {
-    OFP_BSN_EGR_FLOW1_QUAL_INNER_VLAN = 1,
-    OFP_BSN_EGR_FLOW1_QUAL_OUTER_VLAN = 2,
+enum ofp_bsn_field_egr_filter_capability(wire_type=uint8_t, bitmask=True) {
+    OFP_BSN_EGR_FLOW1_QUAL_INNER_VLAN = 0x1,
+    OFP_BSN_EGR_FLOW1_QUAL_OUTER_VLAN = 0x2,
 };
 
-struct of_bsn_tlv_egr_qual_after_strip_vlan : of_bsn_tlv {
+struct of_bsn_tlv_egr_filter_capability : of_bsn_tlv {
     uint16_t type == 317;
     uint16_t length;
-    enum ofp_bsn_field_egr_qual_after_strip_vlan_type value;
+    enum ofp_bsn_field_egr_filter_type value;
 };
