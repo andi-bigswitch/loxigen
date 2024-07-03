@@ -2451,7 +2451,7 @@ struct of_bsn_tlv_port_count : of_bsn_tlv {
     uint16_t value;
 };
 
-enum ofp_bsn_field_egr_filter_capability(wire_type=uint8_t, bitmask=True) {
+enum ofp_bsn_field_egr_filter_type(wire_type=uint8_t, bitmask=True) {
     OFP_BSN_EGR_FLOW1_QUAL_INNER_VLAN = 0x1,
     OFP_BSN_EGR_FLOW1_QUAL_OUTER_VLAN = 0x2,
 };
