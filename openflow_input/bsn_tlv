@@ -2451,7 +2451,7 @@ struct of_bsn_tlv_port_count : of_bsn_tlv {
     uint16_t value;
 };
 
-enum ofp_bsn_field_egr_filter_type(wire_type=uint8_t, bitmask=True) {
+enum ofp_bsn_field_egr_filter_cap(wire_type=uint16_t, bitmask=True) {
     OFP_BSN_EGR_FILTER_QUAL_INNER_VLAN = 0x1,
     OFP_BSN_EGR_FILTER_QUAL_OUTER_VLAN = 0x2,
 };
@@ -2459,5 +2459,5 @@ enum ofp_bsn_field_egr_filter_type(wire_type=uint8_t, bitmask=True) {
 struct of_bsn_tlv_egr_filter_capability : of_bsn_tlv {
     uint16_t type == 317;
     uint16_t length;
-    enum ofp_bsn_field_egr_filter_type value;
+    enum ofp_bsn_field_egr_filter_cap value;
 };
