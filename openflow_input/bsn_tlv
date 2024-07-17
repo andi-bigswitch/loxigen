@@ -2462,13 +2462,14 @@ struct of_bsn_tlv_egr_filter_capability : of_bsn_tlv {
     enum ofp_bsn_field_egr_filter_cap value;
 };
 
-enum ofp_bsn_strip_2nd_vlan_only_on_egress_cap(wire_type=uint8_t, bitmask=True) {
-    OFP_BSN_STRIP_2ND_VLAN_ONLY_ON_EGRESS_NOT_SUPPORTED = 0x0,
-    OFP_BSN_STRIP_2ND_VLAN_ONLY_ON_EGRESS_SUPPORTED = 0x1,
+enum ofp_bsn_strip_vlan_caps(wire_type=uint16_t, bitmask=True) {
+    OFP_BSN_STRIP_VLAN_OUTER = 0x01,
+    OFP_BSN_STRIP_VLAN_OUTER_INNER = 0x02,
+    OFP_BSN_STRIP_VLAN_INNER = 0x04,
 };
 
-struct of_bsn_tlv_strip_2nd_vlan_only_on_egress_capability : of_bsn_tlv {
+struct of_bsn_tlv_strip_vlan_capability : of_bsn_tlv {
     uint16_t type == 318;
     uint16_t length;
-    enum ofp_bsn_strip_2nd_vlan_only_on_egress_cap value;
+    enum ofp_bsn_strip_vlan_caps value;
 };
