@@ -2476,7 +2476,7 @@ struct of_bsn_tlv_strip_vlan_capability : of_bsn_tlv {
 };
 
 struct of_bsn_tlv_aegis_field_set_capability : of_bsn_tlv {
-    uint16_t type = 319;
+    uint16_t type == 319;
     uint16_t length;
 };
 
