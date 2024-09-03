@@ -2475,12 +2475,17 @@ struct of_bsn_tlv_strip_vlan_capability : of_bsn_tlv {
     enum ofp_bsn_strip_vlan_caps value;
 };
 
-enum ofp_bsn_aegis_field_set_caps(wire_type=uint8_t, bitmask=True) {
-    OFP_BSN_AEGIS_FIELD_SET = 0x1,
-};
-
 struct of_bsn_tlv_aegis_field_set_capability : of_bsn_tlv {
     uint16_t type = 319;
     uint16_t length;
-    enum ofp_bsn_aegis_field_set_caps value;
+};
+
+struct of_bsn_tlv_dzgre_capability : of_bsn_tlv {
+    uint16_t type == 320;
+    uint16_t length;
+};
+
+struct of_bsn_tlv_record_capability : of_bsn_tlv {
+    uint16_t type == 321;
+    uint16_t length;
 };
