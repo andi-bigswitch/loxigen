@@ -2489,3 +2489,38 @@ struct of_bsn_tlv_record_capability : of_bsn_tlv {
     uint16_t type == 321;
     uint16_t length;
 };
+
+enum of_bsn_record_index_field(wire_type=uint64_t, bitmask=True) {
+    OFP_BSN_RECORD_INDEX_FIELD_MAC_SRC      = 0x1,
+    OFP_BSN_RECORD_INDEX_FIELD_MAC_DST      = 0x2,
+    OFP_BSN_RECORD_INDEX_FIELD_VLAN_1       = 0x4,
+    OFP_BSN_RECORD_INDEX_FIELD_VLAN_2       = 0x8,
+    OFP_BSN_RECORD_INDEX_FIELD_VLAN_3       = 0x10,
+    OFP_BSN_RECORD_INDEX_FIELD_IPV4_SRC     = 0x20,
+    OFP_BSN_RECORD_INDEX_FIELD_IPV4_DST     = 0x40,
+    OFP_BSN_RECORD_INDEX_FIELD_IPV6_SRC     = 0x80,
+    OFP_BSN_RECORD_INDEX_FIELD_IPV6_DST     = 0x100,
+    OFP_BSN_RECORD_INDEX_FIELD_IP_PROTO     = 0x200,
+    OFP_BSN_RECORD_INDEX_FIELD_PORT_SRC     = 0x400,
+    OFP_BSN_RECORD_INDEX_FIELD_PORT_DST     = 0x800,
+    OFP_BSN_RECORD_INDEX_FIELD_MPLS         = 0x1000,
+    OFP_BSN_RECORD_INDEX_FIELD_COMMUNITY_ID = 0x2000,
+    OFP_BSN_RECORD_INDEX_FIELD_MW_DEVICE_ID = 0x4000,
+    OFP_BSN_RECORD_INDEX_FIELD_MW_PORT_ID   = 0x8000,
+};
+
+struct of_bsn_tlv_record_index_field : of_bsn_tlv {
+    uint16_t type == 322;
+    uint16_t length;
+    enum of_bsn_record_index_field value;
+};
+
+enum of_bsn_record_config(wire_type=uint64_t, bitmask=True) {
+    OFP_BSN_RECORD_PARSE_MW_TRAILER         = 0x1,
+};
+
+struct of_bsn_tlv_record_config : of_bsn_tlv {
+    uint16_t type == 323;
+    uint16_t length;
+    enum of_bsn_record_config value;
+};
