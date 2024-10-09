@@ -1656,7 +1656,8 @@ enum ofp_bsn_packet_field(wire_type=uint16_t) {
     OFP_BSN_PACKET_FIELD_HDR_TIMESTAMP_48B = 4, /* timestamp header, 48-bits */
     OFP_BSN_PACKET_FIELD_HDR_TIMESTAMP_64B = 5, /* timestamp header, 64-bits */
     OFP_BSN_PACKET_FIELD_DST_MAC = 6,           /* destination mac */
-    OFP_BSN_PACKET_FIELD_LAST = 7,              /* last enum value */
+    OFP_BSN_PACKET_FIELD_DZGRE = 7,             /* value is encoded in the DZGRE frame */
+    OFP_BSN_PACKET_FIELD_LAST = 8,              /* last enum value */
 };
 
 struct of_bsn_tlv_packet_field : of_bsn_tlv {
