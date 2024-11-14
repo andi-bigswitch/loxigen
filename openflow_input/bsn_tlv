@@ -2537,3 +2537,9 @@ struct of_bsn_tlv_timestamp_scale : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_timestamp_scale value;
 };
+
+struct of_bsn_tlv_ifindex : of_bsn_tlv {
+    uint16_t type == 325;
+    uint16_t length;
+    uint32_t value;
+};
