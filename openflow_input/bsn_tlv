@@ -2468,6 +2468,7 @@ enum ofp_bsn_strip_vlan_caps(wire_type=uint16_t, bitmask=True) {
     OFP_BSN_STRIP_VLAN_OUTER = 0x01,
     OFP_BSN_STRIP_VLAN_OUTER_INNER = 0x02,
     OFP_BSN_STRIP_VLAN_INNER = 0x04,
+    OFP_BSN_STRIP_VLAN_IN_REPLICATE = 0x08,
 };
 
 struct of_bsn_tlv_strip_vlan_capability : of_bsn_tlv {
