@@ -36,6 +36,11 @@ pipeline {
         }
     }
 
+    options {
+        ansiColor('xterm')
+        timestamps()
+    }
+
     stages {
         stage("Prepare") {
             steps {

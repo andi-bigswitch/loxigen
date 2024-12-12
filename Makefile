@@ -25,7 +25,7 @@
 # EPL for the specific language governing permissions and limitations
 # under the EPL.
 
-# Available targets: all, c, python2, python3, clean
+# Available targets: all, c, python3, clean
 
 # This Makefile is just for convenience. Users that need to pass additional
 # options to loxigen.py are encouraged to run it directly.
@@ -47,28 +47,13 @@ TEST_DATA = $(shell find test_data -name '*.data')
 OPENFLOWJ_OUTPUT_DIR = ${LOXI_OUTPUT_DIR}/openflowj
 OPENFLOWJ_ECLIPSE_WORKSPACE = openflowj-loxi
 
-all: c python2 python3 java wireshark
+all: c python3 java wireshark
 
 c: .loxi_ts.c
 
 .loxi_ts.c: ${LOXI_PY_FILES} ${LOXI_TEMPLATE_FILES} ${INPUT_FILES} ${TEST_DATA}
 	./loxigen.py --install-dir=${LOXI_OUTPUT_DIR} --lang=c --version-list=1.0,1.1,1.2,1.3,1.4
 	touch $@
-
-python2: .loxi_ts.python2
-
-.loxi_ts.python2: ${LOXI_PY_FILES} ${LOXI_TEMPLATE_FILES} ${INPUT_FILES} ${TEST_DATA}
-	./loxigen.py --install-dir=${LOXI_OUTPUT_DIR} --lang=python
-	touch $@
-
-python2-doc: python2
-	rm -rf ${LOXI_OUTPUT_DIR}/pyloxi-doc
-	mkdir -p ${LOXI_OUTPUT_DIR}/pyloxi-doc
-	cp -a py_gen/sphinx ${LOXI_OUTPUT_DIR}/pyloxi-doc/input
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi sphinx-apidoc -o ${LOXI_OUTPUT_DIR}/pyloxi-doc/input ${LOXI_OUTPUT_DIR}/pyloxi
-	sphinx-build ${LOXI_OUTPUT_DIR}/pyloxi-doc/input ${LOXI_OUTPUT_DIR}/pyloxi-doc
-	rm -rf ${LOXI_OUTPUT_DIR}/pyloxi-doc/input
-	@echo "HTML documentation output to ${LOXI_OUTPUT_DIR}/pyloxi-doc"
 
 python3: .loxi_ts.python3
 
@@ -136,19 +121,10 @@ debug:
 	@echo
 	@echo "INPUT_FILES=\"${INPUT_FILES}\""
 
-check-all: check check-c check-py2 check-py3 check-java
+check-all: check check-c check-py3 check-java
 
 check:
-	nosetests3
-
-check-py2: python2
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi:. python2 py_gen/tests/generic_util.py
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi:. python2 py_gen/tests/of10.py
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi:. python2 py_gen/tests/of11.py
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi:. python2 py_gen/tests/of12.py
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi:. python2 py_gen/tests/of13.py
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi:. python2 py_gen/tests/of14.py
-	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi:. python2 py_gen/tests/of15.py
+	nosetests
 
 check-py3: python3
 	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi3:. python3 py_gen/tests3/generic_util.py
@@ -179,4 +155,4 @@ coverage:
 	coverage run -a ./loxigen.py --lang=wireshark
 	coverage annotate -i --omit tenjin.py,pyparsing.py
 
-.PHONY: all clean debug check pylint c python2 python3 coverage
+.PHONY: all clean debug check pylint c python3 coverage

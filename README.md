@@ -20,17 +20,9 @@ Prerequisites
 =============
 
 Running the unit tests requires [nosetests](http://nose.readthedocs.org/en/latest/).
-You can install it via easy_install,
+You can install it via pip:
 ```
-easy_install nose
-```
-pip,
-```
-pip install nose
-```
-or via your distribution's package manager (example for Debian/Ubuntu):
-```
-sudo apt-get install python-nose
+pip install nose-py3
 ```
 
 Nosetests is only required for running the unit tests, not for running LoxiGen
@@ -43,7 +35,7 @@ Usage
 =====
 
 You can run LoxiGen directly from the repository. There's no need to install it,
-and it has no dependencies beyond Python 2.7+.
+and it has no dependencies beyond Python 3.
 
 To generate the libraries for all languages:
 
@@ -57,7 +49,7 @@ To generate the library for a single language:
 make c
 ```
 
-The currently supported languages are `c`, `python` and `java`. There is an
+The currently supported languages are `c`, `python3` and `java`. There is an
 experimental backend that generates a lua wireshark dissector
 (`wireshark`).
 
