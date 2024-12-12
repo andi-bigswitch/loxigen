@@ -32,6 +32,7 @@ Intended to be imported into another namespace
 """
 import logging
 import collections
+import collections.abc
 import functools
 import sys
 
