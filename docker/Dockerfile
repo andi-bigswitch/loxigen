@@ -9,12 +9,8 @@ RUN apt-get update \
         maven \
         openjdk-11-jdk \
         openssh-client \
-        python \
-        python-nose \
-        python-setuptools \
         python3 \
         python3-arrow \
-        python3-nose \
         python3-pip \
         python3-requests \
         python3-setuptools \
@@ -23,7 +19,8 @@ RUN apt-get update \
 RUN curl --fail -L https://jenkins-dl.eng.bigswitch.com/github-known-hosts/master/builds/lastSuccessfulBuild/archive/ssh_known_hosts \
     >/etc/ssh/ssh_known_hosts
 
-RUN pip3 install PyGithub==1.35
+RUN pip3 install PyGithub==1.35 \
+    nose-py3
 
 RUN useradd -m -d /loxi -c 'loxi build user' -u 1000 -s /bin/bash loxi
 COPY run-as-loxi /
