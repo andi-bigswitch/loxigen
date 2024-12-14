@@ -64,12 +64,11 @@
 ::   elif loxi_utils.lookup_ir_wiretype(m.oftype, version=version).startswith("uint"):
 ::     enum = loxi_utils.lookup_ir_enum(m.oftype, version=version)
 ::     if enum:
-::       value_name_map = { entry.value:entry.name for entry in enum.entries }
 ::       if 'bitmask' in enum.params and enum.params['bitmask']:
-                value_name_map = ${value_name_map}
+                value_name_map = const.${enum.name}_map
                 q.text(util.pretty_flags(self.${m.name}, value_name_map.values()))
 ::       else:
-                value_name_map = ${value_name_map}
+                value_name_map = const.${enum.name}_map
                 if self.${m.name} in value_name_map:
                     q.text("%s(%d)" % (value_name_map[self.${m.name}], self.${m.name}))
                 else:
