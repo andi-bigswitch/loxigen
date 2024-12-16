@@ -34,6 +34,7 @@
 import struct
 import loxi
 from . import util
+from . import const
 :: if pyversion == 3:
 import functools
 :: #endif
