@@ -42,9 +42,9 @@ public class MacAddress implements OFValueType<MacAddress> {
 
     private static final String FORMAT_ERROR = "Mac address is not well-formed. " +
             "It must consist of 6 hex-digit pairs separated by colons or hyphens, " +
-            "or 3 hex-digit quartets separated by periods: ";
+            "or 3 hex-digit quads separated by periods: ";
     private static final int MAC_STRING_LENGTH = 6 * 2 + 5;
-    private static final int MAC_ALT_STRING_LENGTH = 3 * 4 + 2;
+    private static final int MAC_QUAD_STRING_LENGTH = 3 * 4 + 2;
 
 
     private MacAddress(final long rawValue) {
@@ -74,7 +74,7 @@ public class MacAddress implements OFValueType<MacAddress> {
     /**
      *  Parse a mac address from a string representation of either
      *  6 hex bytes separated by colons or hyphens (01:02:03:04:05:06, 01-02-03-04-05-06), or
-     *  3 quartets of hex digits separated by periods (0102.0304.0506).
+     *  3 quads of hex digits separated by periods (0102.0304.0506).
      *
      * @param macString - a mac address in string representation
      * @return the parsed MacAddress
@@ -86,7 +86,7 @@ public class MacAddress implements OFValueType<MacAddress> {
 
         if (macString.length() == MAC_STRING_LENGTH) {
             return MacAddress.of(parseMacString(macString));
-        } else if (macString.length() == MAC_ALT_STRING_LENGTH) {
+        } else if (macString.length() == MAC_QUAD_STRING_LENGTH) {
             return MacAddress.of(parseAlternateMacString(macString));
         } else {
             throw new IllegalArgumentException(FORMAT_ERROR + macString + " (unsupported format)");
@@ -257,7 +257,7 @@ public class MacAddress implements OFValueType<MacAddress> {
     }
 
     /**
-     * Generate a MAC address corresponding to multicast IPv6  address.
+     * Generate a MAC address corresponding to multicast IPv6 address.
      *
      * Take the last 4 bytes of IPv6 address and copy them to the base IPv6
      * multicast mac address - 33:33:00:00:00:00.
@@ -319,7 +319,7 @@ public class MacAddress implements OFValueType<MacAddress> {
 
             // validate separator
             if (macString.charAt(index++) != separator) {
-                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (inconsistent separators");
+                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (inconsistent separators)");
             }
 
             shift -= 8;
@@ -328,7 +328,7 @@ public class MacAddress implements OFValueType<MacAddress> {
     }
 
     /**
-     *  Parse a mac address from a string representation of 3 quartets of hex digits separated by
+     *  Parse a mac address from a string representation of 3 quads of hex digits separated by
      *  periods (0102.0304.0506).
      *
      * @param macString - a mac address in string representation
@@ -359,7 +359,7 @@ public class MacAddress implements OFValueType<MacAddress> {
 
             // validate separator
             if (macString.charAt(index++) != separator) {
-                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (inconsistent separators");
+                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (inconsistent separators)");
             }
 
             shift -= 16;
