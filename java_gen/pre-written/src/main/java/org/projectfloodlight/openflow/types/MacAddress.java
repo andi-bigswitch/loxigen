@@ -30,7 +30,7 @@ public class MacAddress implements OFValueType<MacAddress> {
     private final static long BROADCAST_VAL = 0x0000FFFFFFFFFFFFL;
     public static final MacAddress BROADCAST = new MacAddress(BROADCAST_VAL);
 
-    public static final MacAddress NO_MASK = MacAddress.of(0xFFFFFFFFFFFFFFFFl);
+    public static final MacAddress NO_MASK = MacAddress.of(0xFFFFFFFFFFFFFFFFL);
     public static final MacAddress FULL_MASK = MacAddress.of(0x0);
 
     private static final long LLDP_MAC_ADDRESS_MASK = 0xfffffffffff0L;
@@ -41,8 +41,10 @@ public class MacAddress implements OFValueType<MacAddress> {
            MacAddress.of("33:33:00:00:00:00");
 
     private static final String FORMAT_ERROR = "Mac address is not well-formed. " +
-            "It must consist of 6 hex digit pairs separated by colons or hyphens: ";
+            "It must consist of 6 hex-digit pairs separated by colons or hyphens, " +
+            "or 3 hex-digit quads separated by periods: ";
     private static final int MAC_STRING_LENGTH = 6 * 2 + 5;
+    private static final int MAC_QUAD_STRING_LENGTH = 3 * 4 + 2;
 
 
     private MacAddress(final long rawValue) {
@@ -69,47 +71,26 @@ public class MacAddress implements OFValueType<MacAddress> {
         return new MacAddress(raw);
     }
 
-    /** Parse a mac adress from a string representation as
-     *  6 hex bytes separated by colons or hyphens (01:02:03:04:05:06,
-     *  01-02-03-04-05-06).
+    /**
+     *  Parse a mac address from a string representation of either
+     *  6 hex bytes separated by colons or hyphens (01:02:03:04:05:06, 01-02-03-04-05-06), or
+     *  3 quads of hex digits separated by periods (0102.0304.0506).
      *
      * @param macString - a mac address in string representation
      * @return the parsed MacAddress
-     * @throws IllegalArgumentException if macString is not a valid mac adddress
+     * @throws IllegalArgumentException if macString is not a valid mac address in a supported format
      */
     @Nonnull
     public static MacAddress of(@Nonnull final String macString) throws IllegalArgumentException {
-        Preconditions.checkNotNull(macString, "macStringmust not be null");
-        Preconditions.checkArgument(macString.length() == MAC_STRING_LENGTH,
-                FORMAT_ERROR + macString);
-        final char separator = macString.charAt(2);
-        Preconditions.checkArgument(separator == ':' || separator == '-',
-                FORMAT_ERROR + macString + " (invalid separator)");
+        Preconditions.checkNotNull(macString, "macString must not be null");
 
-        int index = 0;
-        int shift = 40;
-        long raw = 0;
-
-        while (shift >= 0) {
-            int digit1 = Character.digit(macString.charAt(index++), 16);
-            int digit2 = Character.digit(macString.charAt(index++), 16);
-            if ((digit1 < 0) || (digit2 < 0))
-                throw new IllegalArgumentException(FORMAT_ERROR + macString);
-            raw |= ((long) (digit1 << 4 | digit2)) << shift;
-
-            if (shift == 0) {
-                break;
-            }
-
-            // Iterate over separators
-            if (macString.charAt(index++) != separator) {
-                throw new IllegalArgumentException(FORMAT_ERROR + macString +
-                                                   " (inconsistent separators");
-            }
-
-            shift -= 8;
+        if (macString.length() == MAC_STRING_LENGTH) {
+            return MacAddress.of(parseMacString(macString));
+        } else if (macString.length() == MAC_QUAD_STRING_LENGTH) {
+            return MacAddress.of(parseAlternateMacString(macString));
+        } else {
+            throw new IllegalArgumentException(FORMAT_ERROR + macString + " (unsupported format)");
         }
-        return MacAddress.of(raw);
     }
 
     /**
@@ -276,7 +257,7 @@ public class MacAddress implements OFValueType<MacAddress> {
     }
 
     /**
-     * Generate a MAC address corresponding to multicast IPv6  address.
+     * Generate a MAC address corresponding to multicast IPv6 address.
      *
      * Take the last 4 bytes of IPv6 address and copy them to the base IPv6
      * multicast mac address - 33:33:00:00:00:00.
@@ -304,5 +285,85 @@ public class MacAddress implements OFValueType<MacAddress> {
         MacAddress returnMac = MacAddress.of(macLong);
 
         return returnMac;
+    }
+
+    /**
+     *  Parse a mac address from a string representation as 6 hex bytes separated by colons or
+     *  hyphens (01:02:03:04:05:06, 01-02-03-04-05-06).
+     *
+     * @param macString - a mac address in string representation
+     * @return the raw long value of the macString
+     * @throws IllegalArgumentException if macString is not a valid mac adddress in the expected format
+     */
+    private static long parseMacString(String macString) throws IllegalArgumentException {
+
+        final char separator = macString.charAt(2);
+        Preconditions.checkArgument(separator == ':' || separator == '-',
+                FORMAT_ERROR + macString + " (invalid separator)");
+
+        int index = 0;
+        int shift = 40;
+        long raw = 0;
+
+        while (shift >= 0) {
+            int digit1 = Character.digit(macString.charAt(index++), 16);
+            int digit2 = Character.digit(macString.charAt(index++), 16);
+            if ((digit1 < 0) || (digit2 < 0)) {
+                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (invalid digit)");
+            }
+            raw |= ((long) (digit1 << 4 | digit2)) << shift;
+
+            if (shift == 0) {
+                break;
+            }
+
+            // validate separator
+            if (macString.charAt(index++) != separator) {
+                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (inconsistent separators)");
+            }
+
+            shift -= 8;
+        }
+        return raw;
+    }
+
+    /**
+     *  Parse a mac address from a string representation of 3 quads of hex digits separated by
+     *  periods (0102.0304.0506).
+     *
+     * @param macString - a mac address in string representation
+     * @return the raw long value of the macString
+     * @throws IllegalArgumentException if macString is not a valid mac adddress in the expected format
+     */
+    private static long parseAlternateMacString(String macString) throws IllegalArgumentException {
+        final char separator = macString.charAt(4);
+        Preconditions.checkArgument(separator == '.', FORMAT_ERROR + macString + " (invalid separator)");
+
+        int index = 0;
+        int shift = 32;
+        long raw = 0;
+
+        while (shift >= 0) {
+            int digit1 = Character.digit(macString.charAt(index++), 16);
+            int digit2 = Character.digit(macString.charAt(index++), 16);
+            int digit3 = Character.digit(macString.charAt(index++), 16);
+            int digit4 = Character.digit(macString.charAt(index++), 16);
+            if ((digit1 < 0) || (digit2 < 0) || (digit3 < 0) || (digit4 < 0)) {
+                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (invalid digit)");
+            }
+            raw |= ((long) (digit1 << 12 | digit2 << 8 | digit3 << 4 | digit4)) << shift;
+
+            if (shift == 0) {
+                break;
+            }
+
+            // validate separator
+            if (macString.charAt(index++) != separator) {
+                throw new IllegalArgumentException(FORMAT_ERROR + macString + " (inconsistent separators)");
+            }
+
+            shift -= 16;
+        }
+        return raw;
     }
 }

@@ -34,6 +34,12 @@ public class MacAddressTest {
              "ff-ff-ff-ff-ff-ff",
      };
 
+    String[] testDotSeparatedStrings = {
+            "0102.0304.0506",
+            "8000.0000.0001",
+            "ffff.ffff.ffff",
+    };
+
     long[] testInts = {
             0x00010203040506L,
             0x00800000000001L,
@@ -51,6 +57,12 @@ public class MacAddressTest {
             "0:1:2:3:4:5:6",
             "01:02:03:04",
             "01-02-03:04-05-06",
+            "01.02.03.04.05.06",
+            "abcd.efgh.ijkl",
+            "0102-0304-0506",
+            "0102.0304-0506",
+            "1.2.3",
+            "01.02.03",
     };
 
     byte[][] invalidMacBytes = {
@@ -62,6 +74,7 @@ public class MacAddressTest {
     public void testOfString() {
         testOfStringForArray(testColonStrings);
         testOfStringForArray(testHyphenStrings);
+        testOfStringForArray(testDotSeparatedStrings);
     }
 
     private void testOfStringForArray(String [] strings) {
