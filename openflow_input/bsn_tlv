@@ -696,6 +696,7 @@ enum of_bsn_hash_type(wire_type=uint8_t) {
     OFP_BSN_HASH_TYPE_L2 = 0,
     OFP_BSN_HASH_TYPE_L3 = 1,
     OFP_BSN_HASH_TYPE_ENHANCED = 2,
+    OFP_BSN_HASH_TYPE_ROUND_ROBIN = 3,
 };
 
 struct of_bsn_tlv_hash_type : of_bsn_tlv {
@@ -1019,6 +1020,7 @@ enum ofp_bsn_enhanced_hash_type(wire_type=uint64_t, bitmask=True) {
     OFP_BSN_ENHANCED_HASH_SYMMETRIC = 0x20,
     OFP_BSN_ENHANCED_HASH_VXLAN = 0x40,
     OFP_BSN_ENHANCED_HASH_SYMMETRIC_L3L4 = 0x80,
+    OFP_BSN_ENHANCED_HASH_ROUND_ROBIN = 0x100,
 };
 
 struct of_bsn_tlv_enhanced_hash_capability : of_bsn_tlv {
