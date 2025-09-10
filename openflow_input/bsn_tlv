@@ -2546,3 +2546,15 @@ struct of_bsn_tlv_ifindex : of_bsn_tlv {
     uint16_t length;
     uint32_t value;
 };
+
+enum ofp_bsn_match_type(wire_type=uint8_t) {
+    OFP_BSN_MATCH_TYPE_ALL = 0,
+    OFP_BSN_MATCH_TYPE_SINGLE = 1,
+    OFP_BSN_MATCH_TYPE_MULTIPLE =2,
+};
+
+struct of_bsn_tlv_match_type : of_bsn_tlv {
+    uint16_t type == 326;
+    uint16_t length;
+    enum ofp_bsn_match_type value;
+};
