@@ -2558,3 +2558,14 @@ struct of_bsn_tlv_match_type : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_match_type value;
 };
+
+enum ofp_bsn_flowdiff(wire_type=uint32_t, bitmask=True) {
+    OFP_BSN_FLOWDIFF_LATENCY    = 0x1,
+    OFP_BSN_FLOWDIFF_DROP       = 0x2,
+};
+
+struct of_bsn_tlv_flowdiff : of_bsn_tlv {
+    uint16_t type == 327;
+    uint16_t length;
+    enum ofp_bsn_flowdiff value;
+};
