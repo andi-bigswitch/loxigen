@@ -19,7 +19,8 @@ RUN apt-get update \
 RUN curl --fail -L https://jenkins-dl.eng.bigswitch.com/github-known-hosts/master/builds/lastSuccessfulBuild/archive/ssh_known_hosts \
     >/etc/ssh/ssh_known_hosts
 
-RUN pip3 install pytest
+RUN pip3 install pyGithub==1.35 \
+        pytest
 
 RUN useradd -m -d /loxi -c 'loxi build user' -u 1000 -s /bin/bash loxi
 COPY run-as-loxi /
