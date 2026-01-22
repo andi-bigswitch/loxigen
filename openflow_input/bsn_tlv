@@ -2569,3 +2569,27 @@ struct of_bsn_tlv_flowdiff : of_bsn_tlv {
     uint16_t length;
     enum ofp_bsn_flowdiff value;
 };
+
+struct of_bsn_tlv_l4_src : of_bsn_tlv {
+    uint16_t type == 328;
+    uint16_t length;
+    uint16_t value;
+};
+
+struct of_bsn_tlv_l4_dst : of_bsn_tlv {
+    uint16_t type == 329;
+    uint16_t length;
+    uint16_t value;
+};
+
+struct of_bsn_tlv_ip_frag_id : of_bsn_tlv {
+    uint16_t type == 330;
+    uint16_t length;
+    uint16_t value;
+};
+
+struct of_bsn_tlv_dns_xid : of_bsn_tlv {
+    uint16_t type == 331;
+    uint16_t length;
+    uint16_t value;
+};

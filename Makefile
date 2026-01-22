@@ -124,7 +124,7 @@ debug:
 check-all: check check-c check-py3 check-java
 
 check:
-	nosetests
+	pytest
 
 check-py3: python3
 	PYTHONPATH=${LOXI_OUTPUT_DIR}/pyloxi3:. python3 py_gen/tests3/generic_util.py

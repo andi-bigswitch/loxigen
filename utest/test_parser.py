@@ -266,9 +266,9 @@ class TestErrors(unittest.TestCase):
 
     def test_invalid_type_name(self):
         self.syntax_error('struct foo { list<of_action_t> bar; }',
-                          'Expected "\("')
+                          r'Expected "\("')
         self.syntax_error('struct foo { uint32_t[10 bar; }',
-                          'Expected "\]"')
+                          r'Expected "\]"')
 
     def test_invalid_member_syntax(self):
         self.syntax_error('struct foo { bar; }',
