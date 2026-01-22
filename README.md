@@ -19,13 +19,13 @@ header for details.)
 Prerequisites
 =============
 
-Running the unit tests requires [nosetests](http://nose.readthedocs.org/en/latest/).
+Running the unit tests requires [pytest](https://docs.pytest.org/).
 You can install it via pip:
 ```
-pip install nose-py3
+pip install pytest
 ```
 
-Nosetests is only required for running the unit tests, not for running LoxiGen
+Pytest is only required for running the unit tests, not for running LoxiGen
 itself. We do ask you to install it and use it before submitting pull requests,
 though.
 
