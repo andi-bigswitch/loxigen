@@ -702,7 +702,7 @@ class Template(object):
         for s in arr:
             arg = s.strip()
             if not s: continue
-            if not re.match('^[a-zA-Z_]\w*$', arg):
+            if not re.match(r'^[a-zA-Z_]\w*$', arg):
                 raise ValueError("%r: invalid template argument." % arg)
             args.append(arg)
             declares.append("%s = _context.get('%s'); " % (arg, arg))
@@ -711,7 +711,7 @@ class Template(object):
         #if nl: declares.append(nl)
         buf.append(''.join(declares) + "\n")
 
-    s = '(?:\{.*?\}.*?)*'
+    s = r'(?:\{.*?\}.*?)*'
     EXPR_PATTERN = (r'#\{(.*?'+s+r')\}|\$\{(.*?'+s+r')\}|\{=(?:=(.*?)=|(.*?))=\}', re.S)
     del s
 

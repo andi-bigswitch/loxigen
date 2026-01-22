@@ -4,7 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## About LoxiGen
 
-LoxiGen is a code generator that produces OpenFlow protocol libraries for multiple languages (C, Python3, Java, and Wireshark dissector). It parses wire protocol descriptions from input files and generates language-specific implementations supporting OpenFlow versions 1.0-1.5.1.
+LoxiGen is a code generator that produces OpenFlow protocol libraries for multiple languages (C, Python3, Java, and Wireshark dissector). It parses wire protocol descriptions from input files and generates language-specific implementations supporting OpenFlow versions 1.0-1.5.
+
+**Production-ready versions**: 1.0, 1.3.1, 1.4.1
+**Experimental versions**: 1.1, 1.2, 1.5.1 (Java only)
+
+LoxiGen has no runtime dependencies beyond Python 3. Running tests requires pytest and Maven (for Java tests).
 
 ## Build and Test Commands
 
@@ -40,7 +45,10 @@ make check-java   # Java library tests (uses Maven)
 
 Run Python unit tests directly:
 ```bash
-pytest
+pytest                    # Run all tests in utest/
+pytest utest/test_*.py   # Run all unit tests
+pytest -k test_name      # Run specific test by name
+pytest utest/test_build_ir.py  # Run single test file
 ```
 
 ### Java-specific Commands
@@ -86,8 +94,9 @@ make clean  # Removes loxi_output directory and timestamp files
 ### Key Entry Points
 
 - `loxigen.py`: Main entry point - orchestrates the entire generation process
-- `lang_c.py`, `lang_java.py`, `lang_python3.py`: Language-specific configuration defining what files to generate
+- `lang_c.py`, `lang_java.py`, `lang_python3.py`, `lang_wireshark.py`: Language-specific configuration defining what files to generate
 - `loxi_globals.py`: Global state including OFVersions registry
+- `cmdline.py`: Command-line argument processing
 
 ### Template System
 
@@ -98,9 +107,9 @@ Each backend uses templates in `<lang>_gen/templates/`:
 ### OpenFlow Version Support
 
 Versions defined in `loxi_globals.py` OFVersions class:
-- 1.0, 1.1, 1.2, 1.3, 1.4, 1.5
-- Production-ready: 1.0, 1.3.1, 1.4.1
-- Experimental: 1.1, 1.2, 1.5.1 (Java only)
+- VERSION_1_0 through VERSION_1_5 (wire_version 1-6)
+- Each version maps to specific wire protocol value and version string
+- Target versions selected via command-line `--version-list` parameter
 
 ### Generated Output Structure
 
@@ -114,12 +123,18 @@ loxi_output/
 
 ## Input File Format
 
-Input files in `openflow_input/` define OpenFlow protocol structures:
+Input files in `openflow_input/` define OpenFlow protocol structures using a custom syntax:
+- First line: `#version <wire_version>` (e.g., `#version 4` for OpenFlow 1.3)
+- Enum definitions: `enum macro_definitions { ... }` for constants
 - Struct definitions with fields: `type field_name;`
-- Lists: `list(type) field_name;`
-- Arrays: `type[length] field_name;`
-- Version-specific variants (e.g., match structures renamed per version)
-- Extensions (BSN-specific messages and actions)
+- Lists: `list(type) field_name;` for variable-length lists
+- Arrays: `type[length] field_name;` for fixed-length arrays
+- Version-specific files: `standard-<version>` (base protocol) and `bsn-<version>` (BigSwitch extensions)
+- Special processing applied to openflow.h headers:
+  - `ofp_header` instances are replaced with their contents inline
+  - Flow modify operations split into separate objects (add, modify, modify_strict, delete, delete_strict)
+  - Match structures renamed to be version-specific
+  - Each action/instruction type becomes its own type
 
 ## Modification Workflow
 
@@ -140,14 +155,55 @@ When modifying code generators:
 
 - Pre-written code: `java_gen/pre-written/` - base classes and utilities that aren't generated
 - Generated code merged with pre-written in `loxi_output/openflowj/`
-- Uses Maven for build and dependency management
+- Generated sources placed in `gen-src/` subdirectory
+- Uses Maven for build and dependency management (pom.xml in pre-written/)
 - Package: `org.projectfloodlight.openflow.*`
+- Eclipse workspace setup available via `make eclipse-workspace`
 
 ## Testing Infrastructure
 
-- `utest/`: Python unit tests for LoxiGen itself (parser, IR, etc.)
-- `test_data/`: Test data files with `.data` extension used during generation
-- Language-specific tests in generated output directories
-- C tests: `loxi_output/locitest/`
-- Python tests: `py_gen/tests3/`
-- Java tests: `java_gen/pre-written/src/test/`
+LoxiGen has two test levels:
+
+### 1. LoxiGen Unit Tests (`utest/`)
+Python tests for the code generator itself (uses pytest):
+- `test_parser.py`: Input file parser tests
+- `test_frontend.py`: Frontend IR generation tests
+- `test_build_ir.py`: Unified IR construction tests
+- `test_generic_utils.py`: Utility function tests
+- `test_test_data.py`: Test data validation
+- Test data: `test_data/` directory with `.data` files
+
+### 2. Generated Library Tests
+Tests for the generated code in each language:
+- **C tests**: `loxi_output/locitest/` - compiled and run via `make check-c`
+- **Python3 tests**: `py_gen/tests3/` - run against generated pyloxi3 library
+- **Java tests**: `java_gen/pre-written/src/test/` - JUnit tests run via Maven
+
+## Direct Invocation
+
+LoxiGen can be run directly without the Makefile:
+```bash
+./loxigen.py --install-dir=loxi_output --lang=c --version-list=1.0,1.3,1.4
+./loxigen.py --install-dir=loxi_output --lang=python3
+./loxigen.py --install-dir=loxi_output --lang=java
+```
+
+Command-line arguments handled by `cmdline.py`:
+- `--install-dir`: Output directory (default: `loxi_output`)
+- `--lang`: Target language (c, python3, java, wireshark)
+- `--version-list`: Comma-separated OpenFlow versions to generate (C only)
+
+## Important Global State
+
+- `loxi_globals.py`: Contains `OFVersions` registry and global `ir` OrderedDict
+- `ir` dictionary: Maps `OFVersion` → `OFProtocol` for each version
+- Built incrementally during code generation pipeline
+- Timestamp files `.loxi_ts.*` track regeneration needs (deleted by `make clean`)
+
+## Key Utilities
+
+- `generic_utils.py`: General-purpose utilities for code generation
+- `loxi_utils/loxi_utils.py`: LOXI-specific utility functions
+- `template_utils.py`: Template rendering helper functions
+- `pyparsing.py`: Third-party parsing library (vendored)
+- `tenjin.py`: Third-party templating engine (vendored)

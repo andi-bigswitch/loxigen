@@ -30,7 +30,17 @@ import sys
 import os
 import unittest
 
-from nose.tools import eq_, ok_, raises
+def ok_(expr, msg=None):
+    """Shorthand for assert. Saves 3 whole characters!
+    """
+    if not expr:
+        raise AssertionError(msg)
+
+def eq_(a, b, msg=None):
+    """Shorthand for 'assert a == b, "%r != %r" % (a, b)
+    """
+    if not a == b:
+        raise AssertionError(msg or "%r != %r" % (a, b))
 
 root_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
 sys.path.insert(0, root_dir)
@@ -119,8 +129,7 @@ class BuildIRTest(unittest.TestCase):
         eq_(c, c2.superclass)
         eq_(False, c2.virtual)
 
-    @raises(ir.ClassNotFoundException)
-    def test_resolve_superclass(self):
+    def test_resolve_superclass_not_found(self):
         version = ir.OFVersion("1.0", 1)
         input = fe.OFInput(filename="test.dat",
                     wire_versions=(1,),
@@ -134,10 +143,10 @@ class BuildIRTest(unittest.TestCase):
                    ),
                     enums=()
                 )
-        p = ir.build_protocol(version, [ input ])
+        with self.assertRaises(ir.ClassNotFoundException):
+            p = ir.build_protocol(version, [ input ])
 
 
-    @raises(ir.DependencyCycleException)
     def test_dependency_cycle(self):
         version = ir.OFVersion("1.0", 1)
         input = fe.OFInput(filename="test.dat",
@@ -158,9 +167,9 @@ class BuildIRTest(unittest.TestCase):
                    ),
                     enums=()
                 )
-        p = ir.build_protocol(version, [ input ])
+        with self.assertRaises(ir.DependencyCycleException):
+            p = ir.build_protocol(version, [ input ])
 
-    @raises(ir.RedefinedException)
     def test_class_redefined(self):
         version = ir.OFVersion("1.0", 1)
         inputs = (
@@ -189,7 +198,8 @@ class BuildIRTest(unittest.TestCase):
                     enums=()
                 )
         )
-        p = ir.build_protocol(version, inputs)
+        with self.assertRaises(ir.RedefinedException):
+            p = ir.build_protocol(version, inputs)
 
 
     def test_enums(self):
